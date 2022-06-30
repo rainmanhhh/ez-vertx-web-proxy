@@ -11,10 +11,10 @@ abstract class ReqEncoderVerticle<Req>: BusiVerticle<SimpleRes<Req>>() {
   lateinit var busiAddress: String
 
   override suspend fun start() {
-    super.start()
     val httpServer: HttpServerConfig by ConfigVerticle
     busiAddress = httpServer.busiAddress
     if (busiAddress.isEmpty()) throw IllegalArgumentException("busiAddress should not be empty")
+    super.start()
   }
 
   override fun path(): String = busiAddress
