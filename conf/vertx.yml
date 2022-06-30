@@ -1,0 +1,5 @@
+vertx:
+  eventLoopPoolSize: 1
+  blockedThreadCheckIntervalUnit: DAYS
+  maxEventLoopExecuteTimeUnit: DAYS
+  maxWorkerExecuteTimeUnit: DAYS

@@ -1,0 +1,4 @@
+httpServer:
+  port: 8888
+  apiKey: 123456
+  timeout: 10000
