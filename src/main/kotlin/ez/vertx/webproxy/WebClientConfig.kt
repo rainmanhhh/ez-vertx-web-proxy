@@ -1,12 +1,6 @@
 package ez.vertx.webproxy
 
-import ez.vertx.core.config.ConfigVerticle
 import io.vertx.ext.web.client.WebClientOptions
-
-class WebClientConfigVerticle : ConfigVerticle<WebClientConfig>() {
-  override val key: String = "webClient"
-  override var configValue: WebClientConfig = WebClientConfig()
-}
 
 class WebClientConfig : WebClientOptions() {
   /**
@@ -25,4 +19,9 @@ class WebClientConfig : WebClientOptions() {
    * if set, all requests will use the same httpMethod
    */
   var httpMethod: String? = null
+
+  /**
+   * target server response charset
+   */
+  var responseCharset = "UTF-8"
 }
