@@ -9,6 +9,12 @@ class WebClientConfig : WebClientOptions() {
    * - should not end with `/`
    */
   var uriRoot: String? = null
+
+  /**
+   * if set to null, use original path;
+   * otherwise all requests will use this same value as path
+   */
+  var uriFixedPath: String? = null
   /**
    * - true: send form to target server
    * - false: send json to target server

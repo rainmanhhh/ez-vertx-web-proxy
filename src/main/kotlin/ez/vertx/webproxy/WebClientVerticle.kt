@@ -26,7 +26,7 @@ open class WebClientVerticle : AutoDeployVerticle, ConfigVerticle<WebClientConfi
 
   private suspend fun sendRequest(req: Req<JsonObject>): HttpResponse<Buffer> {
     val httpMethod = HttpMethod.valueOf((configValue.httpMethod ?: req.headers.httpMethod)!!)
-    val uri = configValue.uriRoot!! + req.headers.path
+    val uri = configValue.uriRoot!! + (configValue.uriFixedPath ?: req.headers.path)
     logger.info("sendRequest: {} {}", httpMethod, uri)
     val request = client.requestAbs(httpMethod, uri)
     val response =

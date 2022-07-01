@@ -21,7 +21,7 @@
     <dependency>
       <groupId>com.github.rainmanhhh</groupId>
       <artifactId>ez-vertx-core</artifactId>
-      <version>1.0.8-SNAPSHOT</version>
+      <version>1.0.8</version>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
