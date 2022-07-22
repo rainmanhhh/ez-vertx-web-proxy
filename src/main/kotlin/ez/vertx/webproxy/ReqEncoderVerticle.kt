@@ -7,8 +7,8 @@ import ez.vertx.core.message.res.SimpleRes
 import io.vertx.core.http.HttpMethod
 import io.vertx.core.json.JsonObject
 
-abstract class ReqEncoderVerticle<Req>: BusiVerticle<SimpleRes<Req>>() {
-  lateinit var busiAddress: String
+abstract class ReqEncoderVerticle : BusiVerticle<SimpleRes<Any?>>() {
+  private lateinit var busiAddress: String
 
   override suspend fun start() {
     val httpServer: HttpServerConfig by ConfigVerticle
@@ -19,9 +19,23 @@ abstract class ReqEncoderVerticle<Req>: BusiVerticle<SimpleRes<Req>>() {
 
   override fun path(): String = busiAddress
 
-  abstract fun encodeReq(httpMethod: HttpMethod?, path: String?, params: JsonObject): Req
+  /**
+   * encode request body.
+   * @return a json object. if [WebClientConfig.contentType] is json or form,
+   *   this object will be mapped into request body;
+   *   otherwise it should have a field named "value" which contains request body string
+   *   (eg.`{"value": "<root>this is xml node</root>"}`)
+   */
+  abstract fun encodeReq(httpMethod: HttpMethod, path: String, params: JsonObject): JsonObject
 
-  final override fun serve(httpMethod: HttpMethod?, path: String?, params: JsonObject): SimpleRes<Req> {
-    return SimpleRes.continueTo(WebClientVerticle.messageSendReq, encodeReq(httpMethod, path, params))
+  final override fun serve(
+    httpMethod: HttpMethod,
+    path: String,
+    params: JsonObject
+  ): SimpleRes<Any?> {
+    return SimpleRes.continueTo(
+      WebClientVerticle.messageSendReq,
+      encodeReq(httpMethod, path, params)
+    )
   }
 }
