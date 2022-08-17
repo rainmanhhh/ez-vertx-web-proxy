@@ -56,7 +56,7 @@ open class WebClientVerticle : AutoDeployVerticle, ConfigVerticle<WebClientConfi
    * return response body, or throw a [ez.vertx.core.err.HttpException].
    * default: decode response body as json
    */
-  open fun decodeRes(req: Req<JsonObject>, res: HttpResponse<Buffer>): SimpleRes<Any?> = SimpleRes<Any?>().apply {
+  open suspend fun decodeRes(req: Req<JsonObject>, res: HttpResponse<Buffer>): SimpleRes<Any?> = SimpleRes<Any?>().apply {
     code = res.statusCode()
     if (isSuccess()) data = res.bodyAsBuffer()?.toJson()
     else message = res.bodyAsString(configValue.responseCharset)
